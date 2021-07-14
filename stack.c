@@ -1,151 +1,144 @@
-#include"stack.h"
+#include "stack.h"
 
-void insert(struct node **head,int n)
+void insert(struct node **head, int n)
 {
-    struct node *temp1,*temp2=*head;
+    struct node *temp1, *temp2 = *head;
 
-    temp1=(struct node *)malloc(sizeof(struct node));
-    temp1->n=n;
-    temp1->next=NULL;
+    temp1 = (struct node *)malloc(sizeof(struct node));
+    temp1->n = n;
+    temp1->next = NULL;
 
-    if(*head==NULL)
-        *head=temp1;
+    if (*head == NULL)
+        *head = temp1;
 
     else
     {
-       while(temp2->next!=NULL)
-            temp2=temp2->next;
-       temp2->next=temp1;
+        while (temp2->next != NULL)
+            temp2 = temp2->next;
+        temp2->next = temp1;
     }
-
 }
 
-
-void  display(struct expression*stack)
+void display(struct expression *stack)
 {
     printf("===> ");
-    while(stack!=NULL)
+    while (stack != NULL)
     {
-        printf("%c",stack->c);
-        stack=stack->next;
+        printf("%c", stack->c);
+        stack = stack->next;
     }
 }
 
-void push(struct node **head,double n)
+void push(struct node **head, double n)
 {
-   struct node *temp=(struct node *)malloc(sizeof(struct node));
-   temp->n=n;
-   temp->next=*head;
-   *head=temp;
+    struct node *temp = (struct node *)malloc(sizeof(struct node));
+    temp->n = n;
+    temp->next = *head;
+    *head = temp;
 }
 
 void pop(struct node **head)
 {
-   struct node *temp;
+    struct node *temp;
 
-   if(*head==NULL)
-     return;
+    if (*head == NULL)
+        return;
 
-   temp=*head;
-   *head=(*head)->next;
-   free(temp);
-
+    temp = *head;
+    *head = (*head)->next;
+    free(temp);
 }
 
-void clearExpression(struct expression **head) {
-    if(*head==NULL) {
+void clearExpression(struct expression **head)
+{
+    if (*head == NULL)
+    {
         return;
     }
 
-    while(*head) {
+    while (*head)
+    {
         letterPop(head);
     }
-
-
 }
 
-void letterInsert(struct expression **exp,char c)
+void letterInsert(struct expression **exp, char c)
 {
-    struct expression *temp1,*temp2=*exp;
+    struct expression *temp1, *temp2 = *exp;
 
-    temp1=(struct expression *)malloc(sizeof(struct expression));
-    temp1->c=c;
-    temp1->next=NULL;
+    temp1 = (struct expression *)malloc(sizeof(struct expression));
+    temp1->c = c;
+    temp1->next = NULL;
 
-    if(*exp==NULL)
-        *exp=temp1;
+    if (*exp == NULL)
+        *exp = temp1;
 
     else
     {
-       while(temp2->next!=NULL)
-            temp2=temp2->next;
-       temp2->next=temp1;
+        while (temp2->next != NULL)
+            temp2 = temp2->next;
+        temp2->next = temp1;
     }
 }
 
-
 void getExpression(struct expression **exp)
 {
-    struct expression *temp=NULL,*tempNext=NULL;
+    struct expression *temp = NULL, *tempNext = NULL;
     char c;
 
-    printf("\nEnter an expression(ex: 1+(3*4): \n");
+    printf("\nEntrer une expression (ex: 1+(3*4): \n");
     printf("===> ");
 
     do
     {
-        scanf("%c",&c);
-        letterInsert(exp,c);
+        scanf("%c", &c);
+        letterInsert(exp, c);
 
-    }while(c!='\n');
+    } while (c != '\n');
 
-     temp=*exp;
+    temp = *exp;
 
-     do
-     {
-       temp=temp->next;
-       tempNext=temp->next;
+    do
+    {
+        temp = temp->next;
+        tempNext = temp->next;
 
-     }while(temp!=NULL && tempNext->next!=NULL);
+    } while (temp != NULL && tempNext->next != NULL);
 
-     temp->next=NULL;
+    temp->next = NULL;
 
-     free(tempNext);
+    free(tempNext);
 }
 
 void expressionDisplay(struct expression *exp)
 {
     printf("\n");
-    while(exp!=NULL)
+    while (exp != NULL)
     {
 
-        printf("%c",exp->c);
-        exp=exp->next;
+        printf("%c", exp->c);
+        exp = exp->next;
     }
-
 }
 
-void letterPush(struct expression **stack,char c)
+void letterPush(struct expression **stack, char c)
 {
-   struct expression *temp=(struct expression *)malloc(sizeof(struct expression));
-   temp->c=c;
-   temp->next=*stack;
-   *stack=temp;
+    struct expression *temp = (struct expression *)malloc(sizeof(struct expression));
+    temp->c = c;
+    temp->next = *stack;
+    *stack = temp;
 }
 
 void letterPop(struct expression **stack)
 {
     struct expression *temp;
 
-   if(*stack==NULL) {
-    return;
-   }
+    if (*stack == NULL)
+    {
+        return;
+    }
 
-
-   temp=*stack;
-   *stack=(*stack)->next;
-   free(temp);
-
+    temp = *stack;
+    *stack = (*stack)->next;
+    free(temp);
 }
-
-
